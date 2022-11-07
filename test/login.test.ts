@@ -3,7 +3,7 @@ import test from "ava";
 
 test("should be able to login", async (t) => {
   if (process.env.CI) {
-    t.pass();
+    return t.pass();
   }
 
   const config: AuthConfig = {
