@@ -1,35 +1,25 @@
-# `tsmodule` library
+# Auth0 Node Login
 
-This is a [`tsmodule`](https://github.com/tsmodule/tsmodule) library. By
-default, it is assumed to be a Node program, but this can be adjusted via the
-`platform` field in package.json.
+A library for authenticating users of a Node program with traditional
+browser-based Auth0 authorization flow. Recommended especially for CLIs.
 
-### Develop
+  - `login(config)` will log the authorization URL to the console and open the
+  browser window directly if possible. 
 
-Rebuild on changes with `tsmodule dev` or the `yarn dev` script:
+  - `logout(config)` will function similarly while clearing the session.
 
-```bash
-yarn dev
-# calls `tsmodule dev`
-```
+### Caching
 
-### Export and publish
+Access tokens will automatically be cached on disk and cleared once they expire.
+Calls to `login(config)` will resolve instantly when the cache is valid.
 
-To export your component library, use `tsmodule build` or the `yarn build`
-script:
+### Acknowledgements
 
-```bash
-yarn build
-# calls `tsmodule build`
-```
+Thanks to @altostra, @yevk, and @ShlomiAltostra for their work on
+[`altostra-cli-login-auth0`](https://github.com/altostra/altostra-cli-login-auth0),
+which no longer works but was helpful for reference on browser opening.
 
-You can then publish to NPM:
+### Disacknowledgments
 
-```bash
-yarn publish
-```
-
-#### Importing from your library
-
-All index exports, e.g. `src/example/index.tsx` will be available downstream
-via `import ... from "my-library/example"`.
+Unthanks to the Auth0 team for making myself and others have to write this
+(several times now) rather than just doing it themselves. 
