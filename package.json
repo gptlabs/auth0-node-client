@@ -1,5 +1,5 @@
 {
-  "name": "auth0-cli-login",
+  "name": "auth0-node-login",
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
@@ -17,18 +17,20 @@
     "dev": "tsmodule dev",
     "build": "tsmodule build",
     "test": "ava",
-    "pretest": "tsmodule build",
+    "pretest": "yarn build",
     "prepublishOnly": "yarn test",
     "lint": "eslint src --fix"
   },
   "devDependencies": {
-    "@tsmodule/tsmodule": "^40.9.0",
+    "@tsmodule/tsmodule": "^40.10.0",
+    "@types/auth0": "^2.35.7",
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
     "ava": "^5.0.1",
     "eslint": "^8.27.0",
     "jwt-decode": "^3.1.2",
+    "node-fetch": "^3.2.10",
     "open": "^8.4.0",
     "typescript": "^4.8.4"
   }
