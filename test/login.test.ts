@@ -1,13 +1,12 @@
 import test from "ava";
-
-if (!process.env.CI) {
-  test.only("skipping for CI", (t) => t.pass());
-}
-
 import type { AuthConfig } from "../src";
-import { login, logout } from "../src";
 
 test.serial("should be able to login", async (t) => {
+  if (process.env.CI) {
+    return t.pass();
+  }
+
+  const { login } = await import("../src");
   const config: AuthConfig = {
     domain: "gptlabs.us.auth0.com",
     redirectUri: "http://localhost:42069",
@@ -24,6 +23,7 @@ test.serial("should be able to logout", async (t) => {
     return t.pass();
   }
 
+  const { logout } = await import("../src");
   const config: AuthConfig = {
     domain: "gptlabs.us.auth0.com",
     redirectUri: "http://localhost:42069",
