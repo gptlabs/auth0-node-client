@@ -1,11 +1,12 @@
-import { AuthConfig, login } from "../src";
 import test from "ava";
+import type { AuthConfig } from "../src";
 
 test("should be able to login", async (t) => {
   if (process.env.CI) {
     return t.pass();
   }
 
+  const { login } = await import("../src");
   const config: AuthConfig = {
     domain: "gptlabs.us.auth0.com",
     redirectUri: "http://localhost:42069",
