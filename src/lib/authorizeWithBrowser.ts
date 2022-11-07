@@ -5,6 +5,7 @@ import open from "open";
 import { AuthConfig, AuthorizationProof } from "../types";
 import { createServer } from "http";
 import { getAuthorizationUrl } from "./getAuthorizationUrl";
+import { sleep } from "../utils";
 
 /**
  * Get an authorization code using the browser.
@@ -18,7 +19,7 @@ export const authorizeWithBrowser = async (
    */
   const code = await new Promise<string>(async (resolve) => {
     const server = createServer((req, res) => {
-      res.end("<html><body><script>window.close()</script></body></html>");
+      res.end("<html><body style=\"height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: sans-serif;\"><h1>Logged in!</h1><p>You can close this now.</p><script>window.close()</script></body></html>");
       req.socket.destroy();
       server.close();
 
@@ -45,7 +46,9 @@ export const authorizeWithBrowser = async (
     console.log();
     console.groupEnd();
 
+    await sleep(500);
     await open(authorizationUrl);
+    await sleep(500);
   });
 
   return { code, verifier };

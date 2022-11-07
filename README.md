@@ -8,6 +8,18 @@ browser-based Auth0 authorization flow. Recommended especially for CLIs.
 
   - `logout(config)` will function similarly while clearing the session.
 
+
+```ts
+await login({
+  domain: "AUTH0_DOMAIN.us.auth0.com",
+  redirectUri: "https://AUTH0_REDIRECT_URI",
+  clientId: "AUTH0_CLIENT_ID",
+  audience: "AUTH0_AUDIENCE"
+});
+```
+
+![](demo.gif)
+
 ### Caching
 
 Access tokens will automatically be cached on disk and cleared once they expire.

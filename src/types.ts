@@ -29,6 +29,12 @@ export type AuthConfig = {
    * URLs**
    */
   redirectUri: string;
+  /**
+   * The scope of the token. Defaults to standard claims "openid profile email".
+   *
+   * @see https://auth0.com/docs/get-started/apis/scopes/sample-use-cases-scopes-and-claims
+   */
+  scope?: string;
 };
 
 /**

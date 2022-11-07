@@ -33,5 +33,8 @@
     "node-fetch": "^3.2.10",
     "open": "^8.4.0",
     "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "debug-logging": "^4.0.4"
   }
 }

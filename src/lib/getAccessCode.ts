@@ -3,6 +3,8 @@ import fetch from "node-fetch";
 import { AuthConfig } from "../types";
 import { TokenResponse } from "auth0";
 import { authorizeWithBrowser } from "./authorizeWithBrowser";
+import { cacheToken, checkCache } from "./cacheToken";
+import { createDebugLogger, log } from "debug-logging";
 
 /**
  * Get a new access code from Auth0.
@@ -10,6 +12,19 @@ import { authorizeWithBrowser } from "./authorizeWithBrowser";
 export const getAccessCode = async (
   config: AuthConfig
 ): Promise<TokenResponse> => {
+  const DEBUG = createDebugLogger(getAccessCode);
+
+  /**
+   * First, try the cache.
+   */
+  const cached = await checkCache();
+  if (cached) {
+    DEBUG.log("Returning cached token response.");
+    return cached.tokenData;
+  }
+
+  DEBUG.log("No cached token response found. Creating new session.");
+
   const { domain, clientId, redirectUri } = config;
   const { code, verifier } = await authorizeWithBrowser(config);
 
@@ -42,6 +57,8 @@ export const getAccessCode = async (
       ) as TokenResponse;
 
   if (tokenResponse && tokenResponse.access_token) {
+    log("Logged in successfully.");
+    await cacheToken(tokenResponse);
     return tokenResponse;
   } else {
     throw new Error("Auth0 TokenResponse was not valid.");
