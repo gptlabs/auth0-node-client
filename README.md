@@ -38,7 +38,7 @@ http://localhost:42069
 
     ```ts
     // src/bin.ts
-    import { AUTH0_CLIENT } from "./globs.ts";
+    import { AUTH0_CLIENT } from "./globs";
 
     /** Log in using the browser. **/
     await AUTH0_CLIENT.login();
