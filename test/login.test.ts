@@ -1,21 +1,20 @@
 import test from "ava";
-import type { AuthConfig } from "../src";
 
 test.serial("should be able to login", async (t) => {
   if (process.env.CI) {
     return t.pass();
   }
 
-  const { login } = await import("../src");
-  const config: AuthConfig = {
+  const { Auth0NodeClient } = await import("../src");
+  const auth0Client = new Auth0NodeClient({
     domain: "gptlabs.us.auth0.com",
     redirectUri: "http://localhost:42069",
     clientId: "I3rJAbl7D09DuYG6dGeYWtBtpuGyeZrI",
     audience: "https://gptlabs.us.auth0.com/api/v2/"
-  };
+  });
 
-  const test = await login(config);
-  t.truthy(test);
+  const user = await auth0Client.login();
+  t.truthy(user);
 });
 
 test.serial("should be able to logout", async (t) => {
@@ -23,13 +22,13 @@ test.serial("should be able to logout", async (t) => {
     return t.pass();
   }
 
-  const { logout } = await import("../src");
-  const config: AuthConfig = {
+  const { Auth0NodeClient } = await import("../src");
+  const auth0Client = new Auth0NodeClient({
     domain: "gptlabs.us.auth0.com",
     redirectUri: "http://localhost:42069",
     clientId: "I3rJAbl7D09DuYG6dGeYWtBtpuGyeZrI",
     audience: "https://gptlabs.us.auth0.com/api/v2/"
-  };
+  });
 
-  await t.notThrowsAsync(logout(config));
+  await t.notThrowsAsync(auth0Client.logout());
 });

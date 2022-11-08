@@ -1,11 +1,10 @@
-/* eslint-disable no-console */
-
 import open from "open";
 
-import { AuthConfig, AuthorizationProof } from "../types";
 import { createServer } from "http";
+import { AuthConfig, AuthorizationProof } from "../types";
 import { getAuthorizationUrl } from "./getAuthorizationUrl";
 import { sleep } from "../utils";
+import { openBrowserLog } from "../utils/log";
 
 /**
  * Get an authorization code using the browser.
@@ -38,13 +37,10 @@ export const authorizeWithBrowser = async (
     process.on("exit", () => server.close());
     server.listen(42069);
 
-    console.group();
-    console.log();
-    console.log("Opening browser for login. Manually visit the link below if it doesn't open:");
-    console.log();
-    console.log(authorizationUrl);
-    console.log();
-    console.groupEnd();
+    openBrowserLog(
+      "Opening browser for login. Manually visit the link below if it doesn't open:",
+      authorizationUrl
+    );
 
     await sleep(500);
     await open(authorizationUrl);

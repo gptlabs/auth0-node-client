@@ -2,8 +2,8 @@ import open from "open";
 
 import { createServer } from "http";
 import { AuthConfig } from "../types";
-import { sleep } from "../utils";
-import { clearCache } from "../lib/cacheToken";
+import { sleep } from "../utils/misc";
+import { clearCache } from "../cache/cacheToken";
 
 export const logout = async (config: AuthConfig) => {
   const { domain, clientId, redirectUri } = config;
@@ -26,5 +26,5 @@ export const logout = async (config: AuthConfig) => {
   await open(logoutUrl);
   await sleep(500);
 
-  await clearCache();
+  await clearCache(config);
 };

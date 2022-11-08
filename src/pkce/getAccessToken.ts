@@ -1,32 +1,32 @@
 import fetch from "node-fetch";
 
-import { AuthConfig } from "../types";
 import { TokenResponse } from "auth0";
-import { authorizeWithBrowser } from "./authorizeWithBrowser";
-import { cacheToken, checkCache } from "./cacheToken";
 import { createDebugLogger, log } from "debug-logging";
+import { AuthConfig, AuthorizationProof } from "../types";
+import { cacheToken, checkCache } from "../cache/cacheToken";
 
 /**
- * Get a new access code from Auth0.
+ * Get a new access token from Auth0.
  */
-export const getAccessCode = async (
-  config: AuthConfig
+export const getAccessToken = async (
+  config: AuthConfig,
+  authorizationProof: AuthorizationProof
 ): Promise<TokenResponse> => {
-  const DEBUG = createDebugLogger(getAccessCode);
+  const DEBUG = createDebugLogger(getAccessToken);
 
   /**
    * First, try the cache.
    */
-  const cached = await checkCache();
+  const cached = await checkCache(config);
   if (cached) {
     DEBUG.log("Returning cached token response.");
-    return cached.tokenData;
+    return cached;
   }
 
   DEBUG.log("No cached token response found. Creating new session.");
 
   const { domain, clientId, redirectUri } = config;
-  const { code, verifier } = await authorizeWithBrowser(config);
+  const { code, verifier } = authorizationProof;
 
   /**
    * Create the access token request payload.
@@ -58,7 +58,7 @@ export const getAccessCode = async (
 
   if (tokenResponse && tokenResponse.access_token) {
     log("Logged in successfully.");
-    await cacheToken(tokenResponse);
+    await cacheToken(config, tokenResponse);
     return tokenResponse;
   } else {
     throw new Error("Auth0 TokenResponse was not valid.");

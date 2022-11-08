@@ -1,4 +1,5 @@
 export const avaConfig = {
+  "timeout": "2m",
   "files": [
     "test/**/*.test.ts"
   ],
