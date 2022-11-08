@@ -1,20 +1,32 @@
 import jwtDecode from "jwt-decode";
-import { User } from "auth0";
+import { TokenResponse, User } from "auth0";
 import { Auth0NodeConfig } from "../types";
 import { authorizeWithBrowser, getAccessToken } from "../pkce";
+import { checkCache } from "../cache";
 
 /**
  * Begin an Auth0 login request.
  */
 export const login = async (config: Auth0NodeConfig) => {
-  const authorizationProof = await authorizeWithBrowser(config);
-  /**
-   * Use the challenge code to get an access token.
-   */
-  const accessTokenResult = await getAccessToken(config, authorizationProof);
+  let accessToken: TokenResponse;
+  const cachedToken = await checkCache(config);
+  if (cachedToken) {
+    accessToken = cachedToken;
+  } else {
+    /**
+     * Get an authorization code.
+     */
+    const authorizationProof = await authorizeWithBrowser(config);
+    /**
+     * Use the authorization code to get an access token.
+     */
+    const newAccessToken = await getAccessToken(config, authorizationProof);
+    accessToken = newAccessToken;
+  }
 
-  if (typeof accessTokenResult.id_token === "string") {
-    const user: User = jwtDecode(accessTokenResult.id_token);
+
+  if (accessToken.id_token) {
+    const user: User = jwtDecode(accessToken.id_token);
     return user;
   } else {
     throw new Error("Auth0 ID token not found on TokenResponse.");

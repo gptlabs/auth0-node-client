@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import test from "ava";
 
 test.serial("should be able to login", async (t) => {
@@ -14,10 +15,11 @@ test.serial("should be able to login", async (t) => {
   });
 
   const user = await auth0Client.login();
+  console.log({ user });
   t.truthy(user);
 });
 
-test.serial("should be able to logout", async (t) => {
+test.skip("should be able to logout", async (t) => {
   if (process.env.CI) {
     return t.pass();
   }
