@@ -19,7 +19,7 @@ test.serial("should be able to login", async (t) => {
   t.truthy(user);
 });
 
-test.skip("should be able to logout", async (t) => {
+test.serial("should be able to logout", async (t) => {
   if (process.env.CI) {
     return t.pass();
   }
