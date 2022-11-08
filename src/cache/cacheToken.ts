@@ -79,13 +79,12 @@ export const checkCache = async (config: Auth0NodeConfig) => {
     ) {
       DEBUG.log("Cached token response has token data.");
 
-      if (tokenResponse.expiresAt <= Date.now()) {
+      if (tokenResponse.expiresAt > Date.now()) {
+        DEBUG.log("Cached token response is valid.");
+        return tokenResponse.tokenData;
+      } else {
         DEBUG.log("Cached token response has expired.");
-        return null;
       }
-
-      DEBUG.log("Cached token response is valid.");
-      return tokenResponse.tokenData;
     }
   }
 
