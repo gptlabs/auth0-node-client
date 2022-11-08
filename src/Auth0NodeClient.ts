@@ -1,6 +1,7 @@
-import type fetch from "node-fetch";
+import type nodeFetch from "node-fetch";
+
 import { isAuthorized, login, logout } from "./actions";
-import { authFetch } from "./cache";
+import { fetch, getUser } from "./cache";
 import { Auth0NodeConfig } from "./types";
 
 /**
@@ -33,10 +34,14 @@ export class Auth0NodeClient {
     return await isAuthorized(this.config);
   }
 
+  public async getUser() {
+    return await getUser(this.config);
+  }
+
   /**
    * Make an authenticated fetch request.
    */
-  public async fetch(...params: Parameters<typeof fetch>) {
-    return await authFetch(this.config, ...params);
+  public async fetch(...params: Parameters<typeof nodeFetch>) {
+    return await fetch(this.config, ...params);
   }
 }
