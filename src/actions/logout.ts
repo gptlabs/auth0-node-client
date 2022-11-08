@@ -1,9 +1,8 @@
-import open from "open";
-
 import { createServer } from "http";
 import { Auth0NodeConfig } from "../types";
-import { getRedirectUri, sleep } from "../utils";
+import { getRedirectUri } from "../utils";
 import { clearCache } from "../cache/cacheToken";
+import { openBrowser } from "../utils/openBrowser";
 
 export const logout = async (config: Auth0NodeConfig) => {
   const { domain, clientId } = config;
@@ -23,9 +22,6 @@ export const logout = async (config: Auth0NodeConfig) => {
   server.listen(42069);
 
   const logoutUrl = `https://${domain}/v2/logout?${form}`;
-  await sleep(500);
-  await open(logoutUrl);
-  await sleep(500);
-
+  await openBrowser(logoutUrl);
   await clearCache(config);
 };

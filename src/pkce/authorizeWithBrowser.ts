@@ -1,10 +1,7 @@
-import open from "open";
-
 import { createServer } from "http";
 import { Auth0NodeConfig, AuthorizationProof } from "../types";
 import { getAuthorizationUrl } from "./getAuthorizationUrl";
-import { sleep } from "../utils";
-import { openBrowserLog } from "../utils/log";
+import { openBrowser } from "../utils/openBrowser";
 
 /**
  * Get an authorization code using the browser.
@@ -52,14 +49,7 @@ export const authorizeWithBrowser = async (
     process.on("exit", () => server.close());
     server.listen(42069);
 
-    openBrowserLog(
-      "Opening browser for login. Manually visit the link below if it doesn't open:",
-      authorizationUrl
-    );
-
-    await sleep(500);
-    await open(authorizationUrl);
-    await sleep(500);
+    await openBrowser(authorizationUrl);
   });
 
   return { code, verifier };
