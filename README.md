@@ -45,8 +45,15 @@ http://localhost:42069
 
     // Later:
 
-    /** Make authenticated requests. Uses `node-fetch` under the hood. */
-    await AUTH0_CLIENT.fetch("http://my-api.com/endpoint", { /* ... */ });
+    /**
+     * Make authenticated requests. Authorization header set automatically.
+     * 
+     * Uses `node-fetch` under the hood to avoid runtime warnings.
+     */
+    await AUTH0_CLIENT.fetch(
+      "http://my-api.com/endpoint", 
+      { method: "POST", /* ... */ }
+    );
     ```
 
 ![](demo.gif)
