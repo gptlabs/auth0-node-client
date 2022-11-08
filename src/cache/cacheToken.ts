@@ -25,9 +25,6 @@ export const getCachePath = (config: Auth0NodeConfig) => {
     "access_token.json"
   );
 
-  // eslint-disable-next-line no-console
-  console.log({ cachePath });
-
   return cachePath;
 };
 

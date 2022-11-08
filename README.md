@@ -1,4 +1,4 @@
-# Auth0 Node Login
+# Auth0 Node Client
 
 A library for authenticating users of a Node program with traditional
 browser-based Auth0 authorization flow. Recommended especially for CLIs.
