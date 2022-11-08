@@ -1,12 +1,13 @@
 import open from "open";
 
 import { createServer } from "http";
-import { AuthConfig } from "../types";
-import { sleep } from "../utils/misc";
+import { Auth0NodeConfig } from "../types";
+import { getRedirectUri, sleep } from "../utils";
 import { clearCache } from "../cache/cacheToken";
 
-export const logout = async (config: AuthConfig) => {
-  const { domain, clientId, redirectUri } = config;
+export const logout = async (config: Auth0NodeConfig) => {
+  const { domain, clientId } = config;
+  const redirectUri = getRedirectUri(config);
   const form = new URLSearchParams({
     client_id: clientId,
     returnTo: redirectUri,

@@ -1,12 +1,12 @@
 import jwtDecode from "jwt-decode";
 import { User } from "auth0";
-import { AuthConfig } from "../types";
+import { Auth0NodeConfig } from "../types";
 import { authorizeWithBrowser, getAccessToken } from "../pkce";
 
 /**
  * Begin an Auth0 login request.
  */
-export const login = async (config: AuthConfig) => {
+export const login = async (config: Auth0NodeConfig) => {
   const authorizationProof = await authorizeWithBrowser(config);
   /**
    * Use the challenge code to get an access token.

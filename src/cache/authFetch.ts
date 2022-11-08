@@ -1,9 +1,9 @@
 import fetch from "node-fetch";
 import { checkCache } from "../cache/cacheToken";
-import { AuthConfig } from "../types";
+import { Auth0NodeConfig } from "../types";
 
 export const authFetch = async (
-  config: AuthConfig,
+  config: Auth0NodeConfig,
   ...params: Parameters<typeof fetch>
 ) => {
   const [url, options] = params;

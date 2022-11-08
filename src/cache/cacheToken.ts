@@ -5,7 +5,7 @@ import { homedir } from "os";
 import { dirname, resolve } from "path";
 
 import { createDebugLogger } from "debug-logging";
-import { AuthConfig } from "../types";
+import { Auth0NodeConfig } from "../types";
 
 const CACHE_DIR = resolve(homedir(), ".config", "auth0");
 
@@ -16,7 +16,7 @@ export type CachedResponse = {
 
 const safeFilename = (str: string) => str.replace(/[^a-z0-9_\.]/gi, "_").toLowerCase();
 
-export const getCachePath = (config: AuthConfig) => {
+export const getCachePath = (config: Auth0NodeConfig) => {
   const { domain, clientId } = config;
   const cachePath = resolve(
     CACHE_DIR,
@@ -31,7 +31,7 @@ export const getCachePath = (config: AuthConfig) => {
   return cachePath;
 };
 
-export const clearCache = async (config: AuthConfig) => {
+export const clearCache = async (config: Auth0NodeConfig) => {
   const DEBUG = createDebugLogger(clearCache);
   const cachePath = getCachePath(config);
 
@@ -42,7 +42,7 @@ export const clearCache = async (config: AuthConfig) => {
 };
 
 export const cacheToken = async (
-  config: AuthConfig,
+  config: Auth0NodeConfig,
   tokenData: TokenResponse
 ) => {
   const DEBUG = createDebugLogger(cacheToken);
@@ -68,7 +68,7 @@ export const cacheToken = async (
 /**
  * Check whether a valid access token is cached, and if so, return it.
  */
-export const checkCache = async (config: AuthConfig) => {
+export const checkCache = async (config: Auth0NodeConfig) => {
   const DEBUG = createDebugLogger(checkCache);
   const cachePath = getCachePath(config);
 

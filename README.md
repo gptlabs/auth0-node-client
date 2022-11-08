@@ -3,6 +3,19 @@
 A library for authenticating users of a Node program with traditional
 browser-based Auth0 authorization flow. Recommended especially for CLIs.
 
+### Prerequisites
+
+This library uses a browser authorization code flow to authenticate a user. It
+does this by starting a server locally, and setting the URL of that server as
+the redirect location for the authorization process.
+
+**You will need to add the client's redirect URL to <u>Applications >
+[Application] > Allowed Callback URLs</u>.** The port can be overridden with the
+`{ redirectPort }` config option, but by default, the callback URL is:
+
+```
+http://localhost:42069
+```
 
 ### Usage
 
@@ -14,7 +27,9 @@ browser-based Auth0 authorization flow. Recommended especially for CLIs.
       domain: "AUTH0_DOMAIN.us.auth0.com",
       redirectUri: "https://AUTH0_REDIRECT_URI",
       clientId: "AUTH0_CLIENT_ID",
-      audience: "AUTH0_AUDIENCE"
+      audience: "AUTH0_AUDIENCE",
+      // redirectPort: 5555,
+      // postLoginRedirect: "https://google.com",
     });
     ```
 

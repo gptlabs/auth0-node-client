@@ -8,9 +8,9 @@ test.serial("should be able to login", async (t) => {
   const { Auth0NodeClient } = await import("../src");
   const auth0Client = new Auth0NodeClient({
     domain: "gptlabs.us.auth0.com",
-    redirectUri: "http://localhost:42069",
     clientId: "I3rJAbl7D09DuYG6dGeYWtBtpuGyeZrI",
-    audience: "https://gptlabs.us.auth0.com/api/v2/"
+    audience: "https://gptlabs.us.auth0.com/api/v2/",
+    // postLoginRedirect: "https://google.com",
   });
 
   const user = await auth0Client.login();
@@ -25,7 +25,6 @@ test.serial("should be able to logout", async (t) => {
   const { Auth0NodeClient } = await import("../src");
   const auth0Client = new Auth0NodeClient({
     domain: "gptlabs.us.auth0.com",
-    redirectUri: "http://localhost:42069",
     clientId: "I3rJAbl7D09DuYG6dGeYWtBtpuGyeZrI",
     audience: "https://gptlabs.us.auth0.com/api/v2/"
   });

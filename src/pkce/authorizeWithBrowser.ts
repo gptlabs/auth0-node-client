@@ -1,7 +1,7 @@
 import open from "open";
 
 import { createServer } from "http";
-import { AuthConfig, AuthorizationProof } from "../types";
+import { Auth0NodeConfig, AuthorizationProof } from "../types";
 import { getAuthorizationUrl } from "./getAuthorizationUrl";
 import { sleep } from "../utils";
 import { openBrowserLog } from "../utils/log";
@@ -10,17 +10,32 @@ import { openBrowserLog } from "../utils/log";
  * Get an authorization code using the browser.
  */
 export const authorizeWithBrowser = async (
-  config: AuthConfig
+  config: Auth0NodeConfig
 ): Promise<AuthorizationProof> => {
+  const { postLoginRedirect } = config;
   const { authorizationUrl, verifier } = await getAuthorizationUrl(config);
+
+  const script = (
+    postLoginRedirect
+      ? `window.location.href = ${JSON.stringify(postLoginRedirect)}`
+      : "window.close()"
+  );
+
   /**
    * Open the page and get the callback URL.
    */
   const code = await new Promise<string>(async (resolve) => {
     const server = createServer((req, res) => {
-      res.end("<html><body style=\"height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: sans-serif;\"><h1>Logged in!</h1><p>You can close this now.</p><script>window.close()</script></body></html>");
+      res.end(`
+<html>
+  <body style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: sans-serif;">
+    <h1>Logged in!</h1>
+    <p>You can close this now.</p>
+    <script>${script}</script>
+  </body>
+</html>
+      `);
       req.socket.destroy();
-      server.close();
 
       if (!req.url) {
         return;

@@ -1,7 +1,7 @@
 /**
  * The configuration for the Auth0 client.
  */
-export type AuthConfig = {
+export type Auth0NodeConfig = {
   /**
    * The Auth0 domain for this application.
    *
@@ -21,14 +21,20 @@ export type AuthConfig = {
    */
   audience: string;
   /**
-   * User is redirected to this URL after a successful login. This must be added
-   * to the allowed callbacks urls and Allowed Origins (CORS) in your Auth0
-   * application:
+   * User is redirected to `http://localhost:{PORT}` after a successful login.
+   * This must be added to the allowed callbacks urls and Allowed Origins (CORS)
+   * in your Auth0 application:
    *
    * **Applications > Applications > [Your App] > Settings > Allowed Callback
    * URLs**
    */
-  redirectUri: string;
+  redirectPort?: number;
+  /**
+   * Due to `window.close()` constraints, the final login page cannot be closed.
+   * If you would like to redirect the user somewhere other than the default
+   * "logged in successfully" page, you can set this value.
+   */
+  postLoginRedirect?: string;
   /**
    * The scope of the token. Defaults to standard claims "openid profile email".
    *

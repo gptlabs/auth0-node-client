@@ -1,7 +1,7 @@
 import type fetch from "node-fetch";
 import { isAuthorized, login, logout } from "./actions";
 import { authFetch } from "./cache";
-import { AuthConfig } from "./types";
+import { Auth0NodeConfig } from "./types";
 
 /**
  * An Auth0 Node client for logging in/out, checking authorization state, and
@@ -9,7 +9,7 @@ import { AuthConfig } from "./types";
  */
 export class Auth0NodeClient {
   constructor(
-    private readonly config: AuthConfig,
+    private readonly config: Auth0NodeConfig,
   ) {}
 
   /**

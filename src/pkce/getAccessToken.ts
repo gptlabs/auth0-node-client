@@ -2,14 +2,15 @@ import fetch from "node-fetch";
 
 import { TokenResponse } from "auth0";
 import { createDebugLogger, log } from "debug-logging";
-import { AuthConfig, AuthorizationProof } from "../types";
-import { cacheToken, checkCache } from "../cache/cacheToken";
+import { Auth0NodeConfig, AuthorizationProof } from "../types";
+import { cacheToken, checkCache } from "../cache";
+import { getRedirectUri } from "../utils";
 
 /**
  * Get a new access token from Auth0.
  */
 export const getAccessToken = async (
-  config: AuthConfig,
+  config: Auth0NodeConfig,
   authorizationProof: AuthorizationProof
 ): Promise<TokenResponse> => {
   const DEBUG = createDebugLogger(getAccessToken);
@@ -25,8 +26,9 @@ export const getAccessToken = async (
 
   DEBUG.log("No cached token response found. Creating new session.");
 
-  const { domain, clientId, redirectUri } = config;
+  const { domain, clientId } = config;
   const { code, verifier } = authorizationProof;
+  const redirectUri = getRedirectUri(config);
 
   /**
    * Create the access token request payload.
