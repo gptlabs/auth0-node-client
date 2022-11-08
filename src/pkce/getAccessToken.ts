@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 import { TokenResponse } from "auth0";
-import { createDebugLogger, log } from "debug-logging";
+import { createDebugLogger } from "debug-logging";
 import { Auth0NodeConfig, AuthorizationProof } from "../types";
 import { cacheToken, checkCache } from "../cache";
 import { getRedirectUri } from "../utils";
@@ -59,7 +59,6 @@ export const getAccessToken = async (
       ) as TokenResponse;
 
   if (tokenResponse && tokenResponse.access_token) {
-    log("Logged in successfully.");
     await cacheToken(config, tokenResponse);
     return tokenResponse;
   } else {
