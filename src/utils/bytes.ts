@@ -1,7 +1,7 @@
-import { getRandomValues, subtle } from "crypto";
+import * as crypto from "crypto";
 
 export const getRandomBytes =
-  async (size: number) => getRandomValues(new Uint8Array(size));
+  async (size: number) => crypto.getRandomValues(new Uint8Array(size));
 
 export const bufferToBase64 = (buffer: ArrayBuffer | Uint8Array) => {
   const base64String = btoa(String.fromCharCode(...new Uint8Array(buffer)));
@@ -12,5 +12,5 @@ export const bufferToBase64 = (buffer: ArrayBuffer | Uint8Array) => {
 };
 
 export const sha256 = async (text: string) => {
-  return await subtle.digest("SHA-256", Buffer.from(text));
+  return await crypto.subtle.digest("SHA-256", Buffer.from(text));
 };
