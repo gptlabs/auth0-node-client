@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import open from "open";
 import { sleep } from "./misc";
 
@@ -7,7 +8,7 @@ export const openBrowser = async (url: string) => {
   console.log();
   console.log("Attempting to open browser. Please visit this link if it does not open automatically.");
   console.log();
-  console.log(url);
+  console.log(chalk.underline(url));
   console.log();
   console.groupEnd();
 
