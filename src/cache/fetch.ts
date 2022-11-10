@@ -29,13 +29,26 @@ export const fetch = async (
     }
   }
 
-  const { access_token: accessToken, token_type: tokenType } = cachedToken;
+  DEBUG.log("Using cached token.");
+
+  const {
+    access_token: accessToken,
+    id_token: idToken,
+    token_type: tokenType
+  } = cachedToken;
+
+  const authHeaders = {
+    "Authorization": `${tokenType} ${accessToken}`,
+    "X-Auth0-Id-Token": idToken ?? "",
+  };
+
+  DEBUG.log("Adding Authorization header to request.", authHeaders);
 
   const response = await nodeFetch(url, {
     ...options,
     headers: {
+      ...authHeaders,
       ...options?.headers,
-      Authorization: `${tokenType} ${accessToken}`,
     },
   });
 
