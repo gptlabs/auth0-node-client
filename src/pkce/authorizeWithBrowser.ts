@@ -3,7 +3,6 @@ import { Auth0NodeConfig, AuthorizationProof } from "../types";
 import { getAuthorizationUrl } from "./getAuthorizationUrl";
 import { openBrowser } from "../utils/openBrowser";
 import { DEFAULT_REDIRECT_PORT } from "./defaults";
-import { rejects } from "assert";
 
 /**
  * Get an authorization code using the browser.
