@@ -2,6 +2,7 @@ import { createServer } from "http";
 import { Auth0NodeConfig, AuthorizationProof } from "../types";
 import { getAuthorizationUrl } from "./getAuthorizationUrl";
 import { openBrowser } from "../utils/openBrowser";
+import { DEFAULT_REDIRECT_PORT } from "./defaults";
 
 /**
  * Get an authorization code using the browser.
@@ -9,7 +10,7 @@ import { openBrowser } from "../utils/openBrowser";
 export const authorizeWithBrowser = async (
   config: Auth0NodeConfig
 ): Promise<AuthorizationProof> => {
-  const { postLoginRedirect } = config;
+  const { redirectPort = DEFAULT_REDIRECT_PORT, postLoginRedirect } = config;
   const { authorizationUrl, verifier } = await getAuthorizationUrl(config);
 
   const script = (
@@ -47,7 +48,7 @@ export const authorizeWithBrowser = async (
     });
 
     process.on("exit", () => server.close());
-    server.listen(42069);
+    server.listen(redirectPort);
 
     await openBrowser(authorizationUrl);
   });
