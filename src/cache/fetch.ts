@@ -39,7 +39,7 @@ export const fetch = async (
 
   const authHeaders = {
     "Authorization": `${tokenType} ${accessToken}`,
-    "X-Auth0-Id-Token": idToken ?? "",
+    "x-auth0-id-token": idToken ?? "",
   };
 
   DEBUG.log("Adding Authorization header to request.", authHeaders);
