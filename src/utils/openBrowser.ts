@@ -6,6 +6,7 @@ import { sleep } from "./misc";
 export const openBrowser = async (url: string) => {
   console.groupCollapsed();
   console.log();
+  // console.log("Visit the following link to log:");
   console.log("Attempting to open browser. Please visit this link if it does not open automatically.");
   console.log();
   console.log(chalk.underline(url));

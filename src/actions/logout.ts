@@ -13,16 +13,19 @@ export const logout = async (config: Auth0NodeConfig) => {
     returnTo: redirectUri,
   });
 
-  const server = createServer((req, res) => {
-    res.end("<html><body><script>window.close()</script></body></html>");
-    req.socket.destroy();
-    server.close();
-  });
-
-  process.on("exit", () => server.close());
-  server.listen(redirectPort);
-
-  const logoutUrl = `https://${domain}/v2/logout?${form}`;
-  await openBrowser(logoutUrl);
   await clearCache(config);
+
+  await new Promise<void>(async (resolve) => {
+    const server = createServer((req, res) => {
+      res.end("<html><body><script>window.close()</script></body></html>");
+      req.socket.destroy();
+      server.close(() => resolve());
+    });
+
+    process.on("exit", () => server.close(() => resolve()));
+    server.listen(redirectPort);
+
+    const logoutUrl = `https://${domain}/v2/logout?${form}`;
+    await openBrowser(logoutUrl);
+  });
 };
