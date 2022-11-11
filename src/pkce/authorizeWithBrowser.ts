@@ -3,6 +3,7 @@ import { Auth0NodeConfig, AuthorizationProof } from "../types";
 import { getAuthorizationUrl } from "./getAuthorizationUrl";
 import { openBrowser } from "../utils/openBrowser";
 import { DEFAULT_REDIRECT_PORT } from "./defaults";
+import { rejects } from "assert";
 
 /**
  * Get an authorization code using the browser.
@@ -22,7 +23,7 @@ export const authorizeWithBrowser = async (
   /**
    * Open the page and get the callback URL.
    */
-  const code = await new Promise<string>(async (resolve) => {
+  const code = await new Promise<string>(async (resolve, reject) => {
     const server = createServer((req, res) => {
       res.end(`
 <html>
@@ -42,9 +43,13 @@ export const authorizeWithBrowser = async (
       const searchParams = new URLSearchParams(req.url.replace(/^\//, ""));
       const code = searchParams.get("code");
 
-      if (code) {
-        server.close(() => resolve(code));
-      }
+      server.close(() => {
+        if (code) {
+          resolve(code);
+        } else {
+          reject("No code found in callback URL.");
+        }
+      });
     });
 
     process.on("exit", () => server.close());
