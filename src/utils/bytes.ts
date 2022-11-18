@@ -1,10 +1,10 @@
 import * as crypto from "crypto";
 
 export const getRandomBytes =
-  async (size: number) => crypto.getRandomValues(new Uint8Array(size));
+  async (size: number) => crypto.randomBytes(size);
 
 export const bufferToBase64 = (buffer: ArrayBuffer | Uint8Array) => {
-  const base64String = btoa(String.fromCharCode(...new Uint8Array(buffer)));
+  const base64String = Buffer.from(buffer).toString("base64");
   return base64String
     .replace(/\+/g, "-")
     .replace(/\//g, "_")
@@ -12,5 +12,8 @@ export const bufferToBase64 = (buffer: ArrayBuffer | Uint8Array) => {
 };
 
 export const sha256 = async (text: string) => {
-  return await crypto.subtle.digest("SHA-256", Buffer.from(text));
+  const hash = crypto.createHash("sha256");
+  hash.update(text);
+
+  return hash.digest();
 };

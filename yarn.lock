@@ -73,9 +73,9 @@
   integrity sha512-+9jVqKhRSpsc591z5vX+X5Yyw+he/HCB4iQ/RYxw35CEPaY1gnsNE43nf9n9AaYjAQrTiI/mOwKUKdUs9vf7Xg==
 
 "@tsmodule/tsmodule@^40.10.0":
-  version "40.10.0"
-  resolved "https://registry.yarnpkg.com/@tsmodule/tsmodule/-/tsmodule-40.10.0.tgz#68715d44f99f5461805f8a5677ed5a6814b8129a"
-  integrity sha512-I5aViskmEoD6QdHdllbZ98NIaSLV426Y4Hiv4zhEljjqSi1Ki3WrLzpsOHih2Px9XlGc5tiqEiZtC5WWiIJOgw==
+  version "40.11.0"
+  resolved "https://registry.yarnpkg.com/@tsmodule/tsmodule/-/tsmodule-40.11.0.tgz#09c26d9b6eca4899d3923a5b39690e8419f0f1d3"
+  integrity sha512-Gi/uVC/iy5EcIkfvloFj9R94MIuczdyRWOBEovk9vYX+H6YmnI3xkC+frDKldLQo7+r5F9nJG9OPKqdh89b/TQ==
   dependencies:
     esbuild "0.15.12"
     typescript "^4.8.4"
