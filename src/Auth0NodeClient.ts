@@ -15,9 +15,14 @@ export class Auth0NodeClient {
 
   /**
    * Log the user in using the browser.
+   *
+   * @param codePrompt Whether to prompt the user for the authorization code.
    */
-  public async login() {
-    return await login(this.config);
+  public async login(codePrompt = this.config.codePrompt) {
+    return await login({
+      ...this.config,
+      codePrompt: codePrompt,
+    });
   }
 
   /**

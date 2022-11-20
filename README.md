@@ -14,7 +14,7 @@ the redirect location for the authorization process.
 `{ redirectPort }` config option, but by default, the callback URL is:
 
 ```
-http://localhost:42069
+http://localhost:23462
 ```
 
 ### Usage
