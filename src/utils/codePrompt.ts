@@ -14,6 +14,7 @@ export const codePrompt = async (url: string) => {
     type: "text",
     name: "code",
     message: "Paste",
+    initial: "",
     hint: "Example: bxZ8PHe3QOeqf0r2HpCyaAnSeOzByDKjquTUsPVPfrH2f",
   });
 
