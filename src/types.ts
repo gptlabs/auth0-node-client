@@ -41,8 +41,9 @@ export type Auth0NodeConfig = {
    * @see https://auth0.com/docs/get-started/apis/scopes/sample-use-cases-scopes-and-claims
    */
   scope?: string;
-    /**
-   * Lets the user open the authorization URL elsewhere and paste the code on the terminal, for usage in SSH sessions.
+  /**
+   * Lets the user open the authorization URL elsewhere and paste the code on
+   * the terminal, for usage in SSH sessions.
    */
   codePrompt?: boolean;
 };

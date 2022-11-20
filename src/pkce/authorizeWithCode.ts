@@ -11,15 +11,13 @@ export const authorizeWithCode = async (
 ): Promise<AuthorizationProof> => {
   const DEBUG = createDebugLogger(authorizeWithCode);
   const { authorizationUrl, verifier } = await getAuthorizationUrl(config);
-  const code = await new Promise<string>(async (resolve, reject) => {
-      DEBUG.log("Prompting for the authorization code")
-      const code = codePrompt(authorizationUrl);
-        if (code) {
-          resolve(code);
-        } else {
-          reject(new Error("No code found"));
-        }
-  });
+
+  DEBUG.log("Prompting for the authorization code");
+  const code = await codePrompt(authorizationUrl);
+
+  if (!code) {
+    throw new Error("Did not provide authorization code.");
+  }
 
   return { code, verifier };
 };
