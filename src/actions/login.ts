@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 import { TokenResponse, User } from "auth0";
 import { Auth0NodeConfig } from "../types";
-import { authorizeWithBrowser, getAccessToken } from "../pkce";
+import { authorizeWithBrowser, authorizeWithCode, getAccessToken } from "../pkce";
 import { checkCache } from "../cache";
 
 /**
@@ -16,7 +16,12 @@ export const login = async (config: Auth0NodeConfig) => {
     /**
      * Get an authorization code.
      */
-    const authorizationProof = await authorizeWithBrowser(config);
+    let authorizationProof;
+    if (config.codePrompt) {
+      authorizationProof = await authorizeWithCode(config);
+    } else {
+      authorizationProof = await authorizeWithBrowser(config);
+    }
     /**
      * Use the authorization code to get an access token.
      */
