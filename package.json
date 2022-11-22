@@ -16,32 +16,30 @@
   },
   "scripts": {
     "dev": "tsmodule dev",
-    "build": "tsmodule build",
+    "build": "tsmodule build --standalone \"src/**/index.ts\"",
     "test": "tsm-test",
     "pretest": "yarn build",
     "prepublishOnly": "yarn test",
     "lint": "eslint src --fix"
   },
   "devDependencies": {
-    "@tsmodule/test": "^0.0.3",
-    "@tsmodule/tsmodule": "^40.16.0",
+    "@tsmodule/test": "^1.0.0",
+    "@tsmodule/tsmodule": "^41.11.0",
     "@types/auth0": "^2.35.7",
     "@types/node": "^18.11.9",
     "@types/prompts": "^2.4.1",
-    "@typescript-eslint/eslint-plugin": "^5.42.0",
-    "@typescript-eslint/parser": "^5.42.0",
-    "eslint": "^8.27.0",
-    "typescript": "^4.8.4"
-  },
-  "dependencies": {
-    "@tsmodule/log": "^0.3.6",
-    "chalk": "^5.1.2",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.3",
+    "@tsmodule/log": "^1.0.0",
     "debug-logging": "^4.0.4",
     "jwt-decode": "^3.1.2",
-    "node-fetch": "^3.2.10",
+    "node-fetch": "^3.3.0",
     "open": "^8.4.0",
     "prompts": "^2.4.2"
   },
+  "dependencies": {},
   "keywords": [
     "Auth0",
     "Node",

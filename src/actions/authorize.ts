@@ -4,7 +4,7 @@ import { getAuthorizationUrl } from "../pkce/getAuthorizationUrl";
 import { createDebugLogger } from "debug-logging";
 import { singleUseServer } from "../utils/singleUserServer";
 import { openBrowser } from "../utils/openBrowser";
-import { success } from "@tsmodule/log";
+import { log, success } from "@tsmodule/log";
 
 /**
  * Get an authorization code by letting the user input it.
@@ -48,4 +48,5 @@ export const generateAuthorizationProof = async (
   });
 
   success("Displayed authorization code successfully.");
+  log("Please paste it into the machine you'd like to authorize.", ["dim"]);
 };
