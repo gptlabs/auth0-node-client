@@ -14,12 +14,13 @@ export class Auth0NodeClient {
   ) {}
 
   /**
-   * Log the user in using the browser.
+   * Log the user in.
    *
-   * @param codePrompt Whether to prompt the user for the authorization code.
+   * @param authorizationProof If the user has authorized on another device,
+   * this is the proof that they have authorized.
    */
-  public async login(authorizationProofDigest?: string) {
-    return await login(this.config, authorizationProofDigest);
+  public async login(authorizationProof?: string) {
+    return await login(this.config, authorizationProof);
   }
 
   /**
