@@ -30,7 +30,7 @@ export const generateAuthorizationProof = async (
       throw new Error("No code found in callback URL.");
     }
 
-    const base64 = Buffer.from(JSON.stringify({ code, verifier })).toString("hex");
+    const base64 = Buffer.from(JSON.stringify({ code, verifier })).toString("base64");
 
     return `
 <html>
@@ -39,7 +39,7 @@ export const generateAuthorizationProof = async (
     <p>Use the <code style="font-size: 14px;">authorize</code> on your other machine.</p>
     <div></div>
     <strong>Click to copy.</strong>
-    <code style="padding: 1rem; cursor: pointer; font-size: 24px; max-width: 368px; overflow: hidden; text-overflow: ellipsis;" onclick="navigator.clipboard.writeText(this.innerText)">
+    <code style="overflow-wrap: anywhere; padding: 1rem; cursor: pointer; font-size: 24px; max-width: 368px; overflow: hidden; text-overflow: ellipsis;" onclick="navigator.clipboard.writeText(this.innerText)">
       ${base64}
     </code>
   </body>

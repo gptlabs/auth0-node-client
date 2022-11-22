@@ -9,7 +9,7 @@ import { checkCache } from "../cache";
  */
 export const login = async (
   config: Auth0NodeConfig,
-  authorizationProofHex?: string
+  authorizationProofBase64?: string
 ) => {
   let accessToken: TokenResponse;
   const cachedToken = await checkCache(config);
@@ -20,8 +20,8 @@ export const login = async (
     /**
      * Get an authorization code.
      */
-    if (authorizationProofHex) {
-      authorizationProof = JSON.parse(Buffer.from(authorizationProofHex, "hex").toString("utf8"));
+    if (authorizationProofBase64) {
+      authorizationProof = JSON.parse(Buffer.from(authorizationProofBase64, "base64").toString("utf8"));
     } else {
       authorizationProof = await authorizeWithBrowser(config);
     }
