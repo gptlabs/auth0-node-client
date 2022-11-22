@@ -17,23 +17,24 @@
   "scripts": {
     "dev": "tsmodule dev",
     "build": "tsmodule build",
-    "test": "ava",
+    "test": "tsm-test",
     "pretest": "yarn build",
     "prepublishOnly": "yarn test",
     "lint": "eslint src --fix"
   },
   "devDependencies": {
+    "@tsmodule/test": "^0.0.3",
     "@tsmodule/tsmodule": "^40.16.0",
     "@types/auth0": "^2.35.7",
     "@types/node": "^18.11.9",
     "@types/prompts": "^2.4.1",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
-    "ava": "^5.0.1",
     "eslint": "^8.27.0",
     "typescript": "^4.8.4"
   },
   "dependencies": {
+    "@tsmodule/log": "^0.3.6",
     "chalk": "^5.1.2",
     "debug-logging": "^4.0.4",
     "jwt-decode": "^3.1.2",
