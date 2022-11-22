@@ -2,7 +2,7 @@
   "include": [
     "*env.d.ts",
     "src/**/*"
-  ],
+, "test/example"  ],
   "exclude": [
     "node_modules",
     "test/**"

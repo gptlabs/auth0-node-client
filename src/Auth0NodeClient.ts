@@ -1,7 +1,7 @@
 import type nodeFetch from "node-fetch";
 
-import { isAuthorized, login, logout } from "./actions";
-import { fetch, getUser } from "./cache";
+import { generateAuthorizationProof, login, logout } from "./actions";
+import { fetch, getUser, isAuthorized } from "./cache";
 import { Auth0NodeConfig } from "./types";
 
 /**
@@ -15,9 +15,18 @@ export class Auth0NodeClient {
 
   /**
    * Log the user in using the browser.
+   *
+   * @param codePrompt Whether to prompt the user for the authorization code.
    */
-  public async login() {
-    return await login(this.config);
+  public async login(authorizationProofDigest?: string) {
+    return await login(this.config, authorizationProofDigest);
+  }
+
+  /**
+   * Generates an authorization proof for a user to log in on another device.
+   */
+  public async authorize() {
+    return await generateAuthorizationProof(this.config);
   }
 
   /**
