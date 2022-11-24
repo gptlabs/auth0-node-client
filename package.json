@@ -1,7 +1,7 @@
 {
   "name": "auth0-node-client",
   "description": "Auth0 Node.js Client for logging in and out with browser, and making authenticated requests.",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "license": "MIT",
   "type": "module",
   "platform": "node",
@@ -23,15 +23,15 @@
     "lint": "eslint src --fix"
   },
   "devDependencies": {
-    "@tsmodule/log": "^1.4.3",
+    "@tsmodule/log": "^1.5.0",
     "@tsmodule/test": "^1.2.4",
-    "@tsmodule/tsmodule": "^41.17.0",
+    "@tsmodule/tsmodule": "^41.21.0",
     "@types/auth0": "^2.35.7",
     "@types/node": "^18.11.9",
     "@types/prompts": "^2.4.1",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
     "@typescript-eslint/parser": "^5.44.0",
-    "debug-logging": "^4.0.4",
+    "debug-logging": "^4.1.2",
     "eslint": "^8.28.0",
     "jwt-decode": "^3.1.2",
     "node-fetch": "^3.3.0",
