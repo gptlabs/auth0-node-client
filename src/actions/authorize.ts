@@ -48,5 +48,5 @@ export const generateAuthorizationProof = async (
   });
 
   success("Displayed authorization code successfully.");
-  log("Please paste it into the machine you'd like to authorize.", ["dim"]);
+  log("Please paste it into the machine you'd like to authorize.", ["dim"], { postLines: 1 });
 };
