@@ -44,7 +44,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.OVERRIDE_GITHUB_TOKEN }}
 
     - name: Build (CJS)
-      run: yarn build
+      run: yarn build -f cjs
 
     - name: Release (CJS)
       run: npx release-it --no-git --preRelease=cjs --github.release --ci --VV
