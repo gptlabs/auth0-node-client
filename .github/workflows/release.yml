@@ -35,7 +35,18 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.OVERRIDE_GITHUB_TOKEN }}
 
-    - name: Test Production Bundle & Release Canary
-      run: npx release-it --github.release --ci --VV
+    - name: Build (ESM)
+      run: yarn build
+
+    - name: Release (ESM)
+      run: npx release-it minor --github.release --ci --VV
+      env:
+        GITHUB_TOKEN: ${{ secrets.OVERRIDE_GITHUB_TOKEN }}
+
+    - name: Build (CJS)
+      run: yarn build
+
+    - name: Release (CJS)
+      run: npx release-it --no-git --preRelease=cjs --github.release --ci --VV
       env:
         GITHUB_TOKEN: ${{ secrets.OVERRIDE_GITHUB_TOKEN }}
