@@ -1,4 +1,4 @@
-name: Release
+name: Release ESM
 
 on:
   push:
@@ -35,7 +35,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.OVERRIDE_GITHUB_TOKEN }}
 
-    - name: Test Production Bundle & Release Canary
+    - name: Build
+      run: yarn build
+
+    - name: Release
       run: npx release-it --github.release --ci --VV
       env:
         GITHUB_TOKEN: ${{ secrets.OVERRIDE_GITHUB_TOKEN }}
