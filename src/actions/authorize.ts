@@ -2,7 +2,7 @@ import { DEFAULT_REDIRECT_PORT } from "../pkce/defaults";
 import { Auth0NodeConfig } from "../types";
 import { getAuthorizationUrl } from "../pkce/getAuthorizationUrl";
 import { createDebugLogger } from "debug-logging";
-import { singleUseServer } from "../utils/singleUserServer";
+import { singleUseServer } from "../utils/singleUseServer";
 import { openBrowser } from "../utils/openBrowser";
 import { log, success } from "@tsmodule/log";
 
