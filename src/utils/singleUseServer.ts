@@ -1,13 +1,24 @@
 import { createDebugLogger } from "debug-logging";
 import { createServer, IncomingMessage, ServerResponse } from "http";
 
+/**
+ * 5 minute timeout.
+ */
+const TIMEOUT = 5 * (60 * 1000);
+export const waitForTimeout = async () => await new Promise((_, reject) => {
+  setTimeout(
+    () => reject(new Error("Server timed out.")),
+    TIMEOUT
+  );
+});
+
 export const singleUseServer = async (
   redirectPort: number,
   displayPage: (res: IncomingMessage) => string
 ) => {
   const DEBUG = createDebugLogger(singleUseServer);
 
-  return await new Promise<{
+  const waitForServer = async () => await new Promise<{
     req: IncomingMessage,
     res: ServerResponse<IncomingMessage>
   }>(async (resolve, reject) => {
@@ -37,4 +48,9 @@ export const singleUseServer = async (
     DEBUG.log("Starting server at port:", { redirectPort });
     server.listen(redirectPort);
   });
+
+  return await Promise.race([
+    waitForServer(),
+    waitForTimeout(),
+  ]);
 };
