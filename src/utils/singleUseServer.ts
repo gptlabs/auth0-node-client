@@ -1,5 +1,34 @@
 import { createDebugLogger } from "debug-logging";
-import { createServer, IncomingMessage, ServerResponse } from "http";
+import { createServer, IncomingMessage, RequestListener, Server, ServerResponse } from "http";
+
+export const createTimeoutServer = <
+  Request extends typeof IncomingMessage = typeof IncomingMessage,
+  Response extends typeof ServerResponse = typeof ServerResponse,
+>(
+  requestListener?: RequestListener<Request, Response>,
+  timeout = 5 * 60 * 1000,
+): Server<Request, Response> => {
+  const DEBUG = createDebugLogger(createTimeoutServer);
+  const server = createServer(requestListener);
+
+  const timeoutKey = setTimeout(
+    () => {
+      DEBUG.log("Timeout reached. Closing server.");
+      server.close();
+    },
+    timeout
+  );
+
+  server.on(
+    "close",
+    () => {
+      DEBUG.log("Server closed. Clearing timeout.");
+      clearTimeout(timeoutKey);
+    }
+  );
+
+  return server;
+};
 
 export const singleUseServer = async (
   redirectPort: number,
@@ -11,7 +40,7 @@ export const singleUseServer = async (
     req: IncomingMessage,
     res: ServerResponse<IncomingMessage>
   }>(async (resolve, reject) => {
-    const server = createServer((req, res) => {
+    const server = createTimeoutServer((req, res) => {
       DEBUG.log("Got request with headers:", req.headers);
 
       res.end(displayPage(req));

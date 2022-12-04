@@ -1,9 +1,9 @@
-import { createServer } from "http";
 import { Auth0NodeConfig, AuthorizationProof } from "../types";
 import { getAuthorizationUrl } from "./getAuthorizationUrl";
 import { openBrowser } from "../utils/openBrowser";
 import { DEFAULT_REDIRECT_PORT } from "./defaults";
 import { createDebugLogger } from "debug-logging";
+import { createTimeoutServer } from "../utils/singleUseServer";
 
 /**
  * Get an authorization code using the browser.
@@ -26,7 +26,7 @@ export const authorizeWithBrowser = async (
    */
   const code = await new Promise<string>(async (resolve, reject) => {
 
-    const server = createServer((req, res) => {
+    const server = createTimeoutServer((req, res) => {
       DEBUG.log("Got request with headers:", req.headers);
 
       res.end(`
