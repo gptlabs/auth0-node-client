@@ -1,7 +1,7 @@
 {
   "name": "auth0-node-client",
   "description": "Auth0 Node.js Client for logging in and out with browser, and making authenticated requests.",
-  "version": "3.5.0",
+  "version": "3.7.0",
   "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "platform": "node",
